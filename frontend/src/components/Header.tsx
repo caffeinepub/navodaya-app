@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, X, GraduationCap } from 'lucide-react';
+import { Menu, X, GraduationCap, Megaphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface HeaderProps {
@@ -12,6 +12,7 @@ const navLinks = [
     { id: 'students', label: 'Students' },
     { id: 'notices', label: 'Notice Board' },
     { id: 'exams', label: 'Exam Schedule' },
+    { id: 'advertisements', label: 'Advertisements', icon: <Megaphone className="w-3.5 h-3.5" /> },
 ];
 
 export default function Header({ activePage, onNavigate }: HeaderProps) {
@@ -58,7 +59,7 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
                     </div>
                     <div className="text-left">
                         <div className="font-serif font-bold text-lg leading-tight text-gold-300 group-hover:text-gold-200 transition-colors">
-                            Navodaya Portal
+                            Suraj Navodaya App
                         </div>
                         <div className="text-xs text-primary-foreground/70 font-sans tracking-wide">
                             Student Information System
@@ -72,12 +73,13 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
                         <button
                             key={link.id}
                             onClick={() => handleNav(link.id)}
-                            className={`px-4 py-2 rounded-md text-sm font-medium font-sans transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-1 focus:ring-offset-maroon-600
+                            className={`px-3 py-2 rounded-md text-sm font-medium font-sans transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-1 focus:ring-offset-maroon-600 flex items-center gap-1.5
                                 ${activePage === link.id
                                     ? 'bg-gold-400 text-maroon-800 shadow-sm font-semibold'
                                     : 'text-primary-foreground/85 hover:bg-maroon-500 hover:text-primary-foreground'
                                 }`}
                         >
+                            {link.icon && link.icon}
                             {link.label}
                         </button>
                     ))}
@@ -102,12 +104,13 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
                         <button
                             key={link.id}
                             onClick={() => handleNav(link.id)}
-                            className={`w-full text-left px-4 py-2.5 rounded-md text-sm font-medium font-sans transition-all
+                            className={`w-full text-left px-4 py-2.5 rounded-md text-sm font-medium font-sans transition-all flex items-center gap-2
                                 ${activePage === link.id
                                     ? 'bg-gold-400 text-maroon-800 font-semibold'
                                     : 'text-primary-foreground/85 hover:bg-maroon-500 hover:text-primary-foreground'
                                 }`}
                         >
+                            {link.icon && link.icon}
                             {link.label}
                         </button>
                     ))}

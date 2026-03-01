@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActor } from './useActor';
-import type { Student, Notice, Exam } from '../backend';
+import type { Student, Notice, Exam, Ad } from '../backend';
 
 // ── Students ──────────────────────────────────────────────────────────────────
 
@@ -98,6 +98,56 @@ export function useAddExam() {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['exams'] });
+        },
+    });
+}
+
+// ── Ads ───────────────────────────────────────────────────────────────────────
+
+export function useGetAllAds() {
+    const { actor, isFetching } = useActor();
+
+    return useQuery<Ad[]>({
+        queryKey: ['ads'],
+        queryFn: async () => {
+            if (!actor) return [];
+            return actor.getAllAds();
+        },
+        enabled: !!actor && !isFetching,
+    });
+}
+
+export function useAddAd() {
+    const { actor } = useActor();
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async (params: {
+            title: string;
+            description: string;
+            imageUrl: string;
+            linkUrl: string;
+        }) => {
+            if (!actor) throw new Error('Actor not initialized');
+            return actor.addAd(params.title, params.description, params.imageUrl, params.linkUrl);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['ads'] });
+        },
+    });
+}
+
+export function useToggleAd() {
+    const { actor } = useActor();
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async (id: bigint) => {
+            if (!actor) throw new Error('Actor not initialized');
+            return actor.toggleAdActive(id);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['ads'] });
         },
     });
 }

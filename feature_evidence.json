@@ -2,22 +2,18 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-build-a-frontend-dashboard-with-sections-for-home-school-overview-and-latest-announcements-students-profile-listing-and-details-notices-board-school-announcements-and-exam-schedule-timetable-view",
-      "featureTitle": "Build a frontend dashboard with sections for: Home (school overview and latest announcements), Students (profile listing and details), Notices Board (school announcements), and Exam Schedule (timetable view).",
+      "featureId": "feature-add-react-query-hooks-for-advertisements-usegetads-fetch-all-ads-useaddad-add-a-new-ad-mutation-with-cache-invalidation-and-usetogglead-toggle-active-status-mutation-in-frontend-src-hooks-usequeries-ts",
+      "featureTitle": "Add React Query hooks for advertisements: useGetAds (fetch all ads), useAddAd (add a new ad mutation with cache invalidation), and useToggleAd (toggle active status mutation) in frontend/src/hooks/useQueries.ts.",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/Header.tsx",
-        "frontend/src/pages/ExamSchedule.tsx",
-        "frontend/src/pages/Home.tsx",
-        "frontend/src/pages/NoticesBoard.tsx",
-        "frontend/src/pages/Students.tsx"
+        "frontend/src/hooks/useQueries.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
         "shadcn-ui@1.0.0",
         "build-template-react@1.0.0",
         "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
       ],
       "testIds": [
         "REQ-2"
@@ -25,18 +21,18 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-apply-a-cohesive-visual-theme-inspired-by-navodaya-vidyalaya-s-identity-use-deep-maroon-and-golden-yellow-as-primary-colors-clean-academic-typography-structured-card-based-layouts-with-subtle-borders-and-a-professional-institutional-look-enforce-this-theme-consistently-across-all-pages-and-components",
-      "featureTitle": "Apply a cohesive visual theme inspired by Navodaya Vidyalaya's identity: use deep maroon and golden-yellow as primary colors, clean academic typography, structured card-based layouts with subtle borders, and a professional institutional look. Enforce this theme consistently across all pages and components.",
+      "featureId": "feature-create-a-new-advertisements-page-frontend-src-pages-advertisements-tsx-that-displays-active-ads-as-visually-styled-banner-cards-with-title-description-and-an-optional-external-link-include-an-admin-dialog-form-to-add-new-ads-with-fields-title-description-image-url-and-link-url-use-the-existing-maroon-and-gold-theme-consistent-with-the-rest-of-the-app",
+      "featureTitle": "Create a new Advertisements page (frontend/src/pages/Advertisements.tsx) that displays active ads as visually styled banner cards with title, description, and an optional external link. Include an admin dialog form to add new ads with fields: title, description, image URL, and link URL. Use the existing maroon-and-gold theme consistent with the rest of the app.",
       "files": [
-        "frontend/src/index.css",
-        "frontend/tailwind.config.js"
+        "frontend/src/pages/Advertisements.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
         "shadcn-ui@1.0.0",
         "build-template-react@1.0.0",
         "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
       ],
       "testIds": [
         "REQ-3"
@@ -44,10 +40,29 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-generate-and-display-a-school-portal-hero-banner-image-and-a-navodaya-logo-emblem-illustration-as-static-assets-in-the-app-header-and-home-page",
-      "featureTitle": "Generate and display a school portal hero banner image and a Navodaya logo/emblem illustration as static assets in the app header and home page.",
+      "featureId": "feature-add-an-advertisements-navigation-entry-to-the-header-component-desktop-nav-buttons-and-mobile-hamburger-menu-and-wire-up-the-active-page-state-in-app-tsx-to-render-the-advertisements-page-when-selected",
+      "featureTitle": "Add an 'Advertisements' navigation entry to the Header component (desktop nav buttons and mobile hamburger menu) and wire up the active page state in App.tsx to render the Advertisements page when selected.",
       "files": [
-        "frontend/src/components/Header.tsx",
+        "frontend/src/App.tsx",
+        "frontend/src/components/Header.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-display-a-horizontal-scrolling-or-grid-preview-of-active-ads-on-the-home-dashboard-page-frontend-src-pages-home-tsx-similar-to-how-recent-notices-and-upcoming-exams-are-previewed-with-a-view-all-navigation-callback-to-the-advertisements-page",
+      "featureTitle": "Display a horizontal scrolling or grid preview of active ads on the Home dashboard page (frontend/src/pages/Home.tsx), similar to how recent notices and upcoming exams are previewed, with a 'View All' navigation callback to the Advertisements page.",
+      "files": [
         "frontend/src/pages/Home.tsx"
       ],
       "components": [
@@ -55,10 +70,11 @@
         "shadcn-ui@1.0.0",
         "build-template-react@1.0.0",
         "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-4"
+        "REQ-5"
       ],
       "confidence": "high"
     }

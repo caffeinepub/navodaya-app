@@ -5,8 +5,9 @@ import Home from '@/pages/Home';
 import Students from '@/pages/Students';
 import NoticesBoard from '@/pages/NoticesBoard';
 import ExamSchedule from '@/pages/ExamSchedule';
+import Advertisements from '@/pages/Advertisements';
 
-type Page = 'home' | 'students' | 'notices' | 'exams';
+type Page = 'home' | 'students' | 'notices' | 'exams' | 'advertisements';
 
 export default function App() {
     const [activePage, setActivePage] = useState<Page>('home');
@@ -21,6 +22,8 @@ export default function App() {
                 return <NoticesBoard />;
             case 'exams':
                 return <ExamSchedule />;
+            case 'advertisements':
+                return <Advertisements />;
             default:
                 return <Home onNavigate={(p) => setActivePage(p as Page)} />;
         }

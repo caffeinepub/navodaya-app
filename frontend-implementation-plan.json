@@ -1,116 +1,76 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Navodaya Vidyalaya Student Portal App - Frontend Implementation",
+  "title": "Add Advertisements Section to Suraj Navodaya App",
   "requirements": [
     {
       "id": "REQ-2",
-      "summary": "Build a frontend dashboard with sections for Home, Students, Notices Board, and Exam Schedule",
+      "summary": "Add React Query hooks for advertisements management",
       "acceptanceCriteria": [
-        "Navigation allows switching between Home, Students, Notices, and Exam Schedule sections",
-        "Home page shows a welcome banner and latest announcements",
-        "Students section lists student profiles with basic details",
-        "Notices board displays school announcements in chronological order",
-        "Exam schedule shows a timetable of upcoming exams"
+        "useGetAds hook fetches all ads from the backend actor",
+        "useAddAd mutation invalidates the ads query cache on success",
+        "useToggleAd mutation toggles the isActive field and invalidates the ads cache"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/hooks/useQueries.ts",
           "operation": "modify",
-          "description": "Set up routing for Home, Students, Notices, and Exam Schedule pages using React Router. Add navigation structure to switch between sections."
-        },
-        {
-          "path": "frontend/src/pages/Home.tsx",
-          "operation": "create",
-          "description": "Create the Home page with a welcome banner section and a display area for latest announcements. Use React Query to fetch notices from backend using getAllNotices(). Display the hero banner image (frontend/public/assets/generated/navodaya-hero-banner.dim_1200x400.png) in the banner section."
-        },
-        {
-          "path": "frontend/src/pages/Students.tsx",
-          "operation": "create",
-          "description": "Create the Students page that lists student profiles. Use React Query to fetch students from backend using getAllStudents(). Display each student's name, class, house, and roll number in a card-based layout."
-        },
-        {
-          "path": "frontend/src/pages/NoticesBoard.tsx",
-          "operation": "create",
-          "description": "Create the Notices Board page that displays school announcements. Use React Query to fetch notices from backend using getAllNotices(). Sort notices in chronological order and display title, content, and date in structured cards."
-        },
-        {
-          "path": "frontend/src/pages/ExamSchedule.tsx",
-          "operation": "create",
-          "description": "Create the Exam Schedule page that shows a timetable view of upcoming exams. Use React Query to fetch exams from backend using getAllExams(). Display each exam's subject, date, time, and class level in a table or card format."
-        },
-        {
-          "path": "frontend/src/components/Header.tsx",
-          "operation": "create",
-          "description": "Create a header component displaying the school emblem logo (frontend/public/assets/generated/navodaya-emblem.dim_128x128.png) and navigation links to all main sections. Wire this header into App.tsx so it appears on all pages."
-        },
-        {
-          "path": "frontend/src/hooks/useStudents.ts",
-          "operation": "create",
-          "description": "Create a React Query hook to fetch all students from the backend using getAllStudents(). Handle loading and error states."
-        },
-        {
-          "path": "frontend/src/hooks/useNotices.ts",
-          "operation": "create",
-          "description": "Create a React Query hook to fetch all notices from the backend using getAllNotices(). Handle loading and error states."
-        },
-        {
-          "path": "frontend/src/hooks/useExams.ts",
-          "operation": "create",
-          "description": "Create a React Query hook to fetch all exams from the backend using getAllExams(). Handle loading and error states."
+          "description": "Add three new React Query hooks: useGetAds (query to fetch all advertisements from backend.getAllAds), useAddAd (mutation calling backend.addAd with title, description, imageUrl, linkUrl and invalidating 'ads' query key on success), and useToggleAd (mutation calling backend.toggleAdActive with ad id and invalidating 'ads' query key on success). Follow the existing pattern used for students, notices, and exams hooks."
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Apply a cohesive visual theme inspired by Navodaya Vidyalaya's identity with deep maroon and golden-yellow colors, academic typography, and card-based layouts",
+      "summary": "Create Advertisements page with active ads display and admin dialog form",
       "acceptanceCriteria": [
-        "Primary color palette uses deep maroon and golden-yellow tones",
-        "Typography is clean and readable, suitable for an academic institution",
-        "All pages use a consistent layout structure with card-based content areas",
-        "The visual style feels professional and institutional throughout the app"
+        "Advertisements page renders a list of active ad banner cards",
+        "Each card shows title, description, and a clickable external link if linkUrl is provided",
+        "An 'Add Advertisement' dialog form allows entering title, description, imageUrl, and linkUrl",
+        "Empty state is shown using the EmptyState component when no ads exist",
+        "Page uses maroon-and-gold color tokens consistent with the rest of the app"
       ],
       "file_operations": [
         {
-          "path": "frontend/tailwind.config.js",
-          "operation": "modify",
-          "description": "Extend Tailwind theme with deep maroon and golden-yellow as primary brand colors. Add custom color variables for primary (maroon), secondary (golden-yellow), and accent shades suitable for an academic institution."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Define global styles enforcing academic typography (clean serif or sans-serif fonts), base text sizes, and consistent spacing. Apply the maroon and golden-yellow theme to root CSS variables and default text/background colors."
-        },
-        {
-          "path": "frontend/src/components/Card.tsx",
+          "path": "frontend/src/pages/Advertisements.tsx",
           "operation": "create",
-          "description": "Create a reusable Card component with subtle borders, padding, and shadow that reflects the institutional look. Use the theme colors from Tailwind config for borders and accents."
-        },
-        {
-          "path": "frontend/src/components/Layout.tsx",
-          "operation": "create",
-          "description": "Create a Layout component that wraps all pages with consistent structure, including the Header component and a main content area. Apply the institutional styling and card-based structure here. Wire this Layout into App.tsx to wrap all routes."
+          "description": "Create a new page component that uses useGetAds to fetch advertisements and displays active ads as visually styled banner cards with title, description, and optional external link button. Include an 'Add Advertisement' button in the PageHeader action slot that opens a Dialog form with Input fields for title, description, imageUrl (text URL input), and linkUrl. Use useAddAd mutation to submit new ads. Show EmptyState component with MegaphoneIcon when no active ads exist. Apply maroon-and-gold theme using CSS custom properties (--primary, --maroon, --gold) matching the existing app styling. Each ad card should conditionally render an external link button only if linkUrl is provided. Use admin-only guard similar to other pages if needed."
         }
       ]
     },
     {
       "id": "REQ-4",
-      "summary": "Display a school portal hero banner image and a Navodaya logo/emblem as static assets in the app header and home page",
+      "summary": "Wire Advertisements page into navigation and routing",
       "acceptanceCriteria": [
-        "Hero banner image is displayed on the home page",
-        "Logo/emblem is displayed in the app header",
-        "Images are loaded from frontend/public/assets/generated"
+        "Header desktop nav includes an 'Advertisements' button",
+        "Header mobile hamburger menu includes an 'Advertisements' item",
+        "App.tsx renders the Advertisements page when the 'Advertisements' nav item is active"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "operation": "modify",
+          "description": "Add an 'Advertisements' navigation button to the desktop nav buttons array (alongside Home, Students, Notices Board, Exam Schedule) and add a corresponding menu item to the mobile hamburger menu. Use MegaphoneIcon from lucide-react for the nav icon. Ensure the active state styling is applied when 'Advertisements' is the active page."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Import the new Advertisements page component and add 'Advertisements' as a fifth valid page option in the activePage state type. Add a case in the page rendering logic to display the Advertisements component when activePage === 'Advertisements'. Ensure the page state is correctly passed to Header for active nav highlighting."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Display active ads preview section on Home dashboard",
+      "acceptanceCriteria": [
+        "Home page shows a preview section for active ads",
+        "A 'View All' button navigates to the Advertisements page",
+        "If no active ads exist, the preview section is hidden or shows a brief empty message"
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/Home.tsx",
           "operation": "modify",
-          "description": "Wire in the generated hero banner image (frontend/public/assets/generated/navodaya-hero-banner.dim_1200x400.png) into the Home page banner section. Use an <img> tag with proper alt text and styling to display it prominently at the top."
-        },
-        {
-          "path": "frontend/src/components/Header.tsx",
-          "operation": "modify",
-          "description": "Wire in the generated emblem logo (frontend/public/assets/generated/navodaya-emblem.dim_128x128.png) into the header. Display it alongside the app title and navigation links, ensuring it is visible on all pages."
+          "description": "Add a new preview section for active advertisements below the existing Recent Notices and Upcoming Exams sections. Use useGetAds hook to fetch ads and filter for isActive === true. Display up to 3 active ads in a horizontal scrolling or grid layout with each ad showing title and a brief description excerpt. Include a 'View All' button that calls setActivePage('Advertisements'). If no active ads exist, conditionally hide the section or show a brief empty message. Match the existing card styling and layout patterns used for notices and exams previews. Use MegaphoneIcon for the section icon."
         }
       ]
     }

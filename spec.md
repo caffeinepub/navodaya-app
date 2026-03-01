@@ -1,16 +1,13 @@
 # Specification
 
 ## Summary
-**Goal:** Build a Navodaya Vidyalaya student portal app with a backend for school data and a themed frontend dashboard.
+**Goal:** Add an Advertisements section to the Suraj Navodaya App, allowing admins to post ads and users to view them across the app.
 
 **Planned changes:**
-- Backend actor (Motoko) with CRUD operations for student profiles (name, class, house, roll number), announcements/notices, and exam schedules
-- Frontend dashboard with four sections: Home, Students, Notices Board, and Exam Schedule
-- Home page displays a hero banner image, welcome message, and latest announcements
-- Students section lists and shows student profile cards
-- Notices board displays announcements in chronological order
-- Exam schedule shows an upcoming exam timetable
-- App header includes the Navodaya emblem/logo
-- Cohesive visual theme using deep maroon and golden-yellow colors, clean academic typography, and card-based layouts throughout
+- Add `Ad` data model to the backend with fields: id, title, description, imageUrl, linkUrl, isActive, and createdAt; expose `addAd`, `getAllAds`, and `toggleAdActive` functions in the main actor
+- Add React Query hooks: `useGetAds`, `useAddAd`, and `useToggleAd` in `useQueries.ts`
+- Create a new `Advertisements` page displaying active ads as styled banner cards with title, description, and optional external link, plus an admin dialog to add new ads; follows the maroon-and-gold theme
+- Add "Advertisements" navigation entry to the Header (desktop and mobile) and wire it up in `App.tsx`
+- Add an active ads preview section on the Home dashboard page with a "View All" button navigating to the Advertisements page
 
-**User-visible outcome:** Users can navigate a professional school portal to view student profiles, read notices, and check exam schedules, all presented in a Navodaya Vidyalaya-inspired institutional theme.
+**User-visible outcome:** Users can browse advertisements on a dedicated page and in a preview section on the home dashboard; admins can add new ads and toggle their active status via a dialog form.

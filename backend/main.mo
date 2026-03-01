@@ -3,8 +3,25 @@ import List "mo:core/List";
 import Map "mo:core/Map";
 import Iter "mo:core/Iter";
 import Order "mo:core/Order";
+import Time "mo:core/Time";
+import Runtime "mo:core/Runtime";
+import Principal "mo:core/Principal";
+import MixinAuthorization "authorization/MixinAuthorization";
+import AccessControl "authorization/access-control";
+import Migration "migration";
 
+(with migration = Migration.run)
 actor {
+  // Initialize the user system state
+  let accessControlState = AccessControl.initState();
+  include MixinAuthorization(accessControlState);
+
+  type UserProfile = {
+    name : Text;
+  };
+
+  let userProfiles = Map.empty<Principal, UserProfile>();
+
   type Student = {
     name : Text;
     classLevel : Nat;
@@ -43,13 +60,49 @@ actor {
     };
   };
 
-  // Storage Structures
+  type Ad = {
+    id : Nat;
+    title : Text;
+    description : Text;
+    imageUrl : Text;
+    linkUrl : Text;
+    isActive : Bool;
+    createdAt : Int;
+  };
+
   let students = List.empty<Student>();
   let notices = Map.empty<Text, Notice>();
   let exams = Map.empty<Text, Exam>();
+  let ads = Map.empty<Nat, Ad>();
+  var nextAdId = 1;
+
+  // User Profile Management
+  public query ({ caller }) func getCallerUserProfile() : async ?UserProfile {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can get profiles");
+    };
+    userProfiles.get(caller);
+  };
+
+  public query ({ caller }) func getUserProfile(user : Principal) : async ?UserProfile {
+    if (caller != user and not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Can only view your own profile");
+    };
+    userProfiles.get(user);
+  };
+
+  public shared ({ caller }) func saveCallerUserProfile(profile : UserProfile) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can save profiles");
+    };
+    userProfiles.add(caller, profile);
+  };
 
   // Student Management
   public shared ({ caller }) func addStudent(name : Text, classLevel : Nat, house : Text, rollNumber : Nat) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can add students");
+    };
     let newStudent : Student = {
       name;
       classLevel;
@@ -59,12 +112,15 @@ actor {
     students.add(newStudent);
   };
 
-  public query ({ caller }) func getAllStudents() : async [Student] {
+  public query func getAllStudents() : async [Student] {
     students.toArray().sort();
   };
 
   // Notice Management
   public shared ({ caller }) func addNotice(title : Text, content : Text, date : Text) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can add notices");
+    };
     let newNotice : Notice = {
       title;
       content;
@@ -73,7 +129,7 @@ actor {
     notices.add(title, newNotice);
   };
 
-  public query ({ caller }) func getAllNotices() : async [Notice] {
+  public query func getAllNotices() : async [Notice] {
     let noticesIter = notices.values();
     let noticeArray = noticesIter.toArray();
     noticeArray.sort();
@@ -81,6 +137,9 @@ actor {
 
   // Exam Management
   public shared ({ caller }) func addExam(subject : Text, date : Text, time : Text, classLevel : Nat) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can add exams");
+    };
     let newExam : Exam = {
       subject;
       date;
@@ -90,9 +149,53 @@ actor {
     exams.add(subject, newExam);
   };
 
-  public query ({ caller }) func getAllExams() : async [Exam] {
+  public query func getAllExams() : async [Exam] {
     let examIter = exams.values();
     let examArray = examIter.toArray();
     examArray.sort();
+  };
+
+  // Ads Management
+  public shared ({ caller }) func addAd(
+    title : Text,
+    description : Text,
+    imageUrl : Text,
+    linkUrl : Text,
+  ) : async Nat {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can add ads");
+    };
+    let id = nextAdId;
+    let newAd : Ad = {
+      id;
+      title;
+      description;
+      imageUrl;
+      linkUrl;
+      isActive = true;
+      createdAt = Time.now();
+    };
+    ads.add(id, newAd);
+    nextAdId += 1;
+    id;
+  };
+
+  public shared ({ caller }) func toggleAdActive(id : Nat) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can toggle ads");
+    };
+    switch (ads.get(id)) {
+      case (?ad) {
+        let updatedAd = { ad with isActive = not ad.isActive };
+        ads.add(id, updatedAd);
+      };
+      case (null) {
+        Runtime.trap("Ad not found!");
+      };
+    };
+  };
+
+  public query func getAllAds() : async [Ad] {
+    ads.values().toArray();
   };
 };

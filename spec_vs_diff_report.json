@@ -1,86 +1,54 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-28T16:25:34.484Z",
-  "summary": "The diff implements most requirements well. Backend CRUD operations are present but lack delete/update methods (only add and getAll). The frontend covers all four sections with correct theming and image references. The generated image files themselves are not present in the diff (omitted due to limits), but the code references them correctly. Overall implementation is strong with minor gaps in CRUD completeness.",
+  "generatedAt": "2026-03-01T02:04:02.215Z",
+  "summary": "All five requirements are substantially implemented. REQ-1 backend model and CRUD functions are present. REQ-2 hooks are added to useQueries.ts. REQ-3 Advertisements page exists with cards, dialog, EmptyState, and maroon-gold theme. REQ-4 Header and App.tsx wiring are complete. REQ-5 Home page preview section with active ads and View All navigation is present. One minor naming discrepancy exists: the spec calls for 'useGetAds' but the implementation exports 'useGetAllAds'. Overall compliance is very high.",
   "missing_requirements": [
     {
-      "id": "REQ-1",
-      "requirement": "CRUD operations are available for each data type (students, notices, exams)",
-      "reason": "The backend only implements 'add' (create) and 'getAll' (read) operations. There are no update or delete functions for students, notices, or exams in backend/main.mo.",
+      "id": "REQ-2",
+      "requirement": "useGetAds hook (named exactly 'useGetAds') fetches all ads from the backend actor",
+      "reason": "The hook is implemented as 'useGetAllAds' rather than 'useGetAds' as specified. While functionally equivalent, the AC specifies the hook name 'useGetAds'.",
       "evidence": [
-        "backend/main.mo"
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "requirement": "Images are loaded from frontend/public/assets/generated (actual image files must exist at that path)",
-      "reason": "The diff notes one added file was omitted due to limits, and no image files (navodaya-hero-banner.dim_1200x400.png, navodaya-emblem.dim_128x128.png) appear as added files. The code references them at /assets/generated/ but their actual presence cannot be confirmed from the diff.",
-      "evidence": [
-        "frontend/src/pages/Home.tsx",
-        "frontend/src/components/Header.tsx"
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/Advertisements.tsx"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Mobile hamburger navigation menu with responsive open/close toggle",
-      "reason": "The build request does not specify a mobile hamburger menu. The Header component implements a mobile menu with Menu/X icons and mobileOpen state that was not requested.",
+      "description": "A migration module (backend/migration.mo) was added to handle schema migration from old actor state to new actor state including the ads map and nextAdId field.",
+      "reason": "The build request does not mention any migration module or data migration strategy. The requirement only asks for adding the Ad model and CRUD functions to the main actor.",
       "evidence": [
-        "frontend/src/components/Header.tsx"
+        "backend/migration.mo"
       ]
     },
     {
-      "description": "Expandable 'Read more / Show less' functionality on notice cards",
-      "reason": "The build request only asks for notices displayed in chronological order. The expandable content feature was not requested.",
+      "description": "A URL parameter utility module (frontend/src/utils/urlParams.ts) was added with functions for reading/storing URL and session parameters, including logic for clearing sensitive params from URL hash.",
+      "reason": "The build request makes no mention of URL parameter utilities, session storage helpers, or hash-based routing parameter management.",
       "evidence": [
-        "frontend/src/pages/NoticesBoard.tsx"
+        "frontend/src/utils/urlParams.ts"
       ]
     },
     {
-      "description": "Search/filter functionality on the Students page",
-      "reason": "The build request asks for a student profile listing with basic details but does not specify a search or filter feature.",
+      "description": "The Advertisements page renders ALL ads including inactive ones with toggle controls, not just active ads as banner cards.",
+      "reason": "REQ-3 AC states 'Advertisements page renders a list of active ad banner cards', but the implementation shows inactive ads with reduced opacity and includes toggle buttons, going beyond the stated requirement.",
       "evidence": [
-        "frontend/src/pages/Students.tsx"
-      ]
-    },
-    {
-      "description": "Upcoming/completed status badges on exam entries",
-      "reason": "The build request asks for a timetable view but does not specify status badge differentiation between upcoming and completed exams.",
-      "evidence": [
-        "frontend/src/pages/ExamSchedule.tsx"
-      ]
-    },
-    {
-      "description": "caffeine.ai attribution link in the footer with UTM tracking parameters",
-      "reason": "This was not requested in the build request and is unrelated to the school portal functionality.",
-      "evidence": [
-        "frontend/src/components/Footer.tsx"
+        "frontend/src/pages/Advertisements.tsx"
       ]
     }
   ],
-  "confidence": 0.78,
+  "confidence": 0.82,
   "changed_files": [
-    "all_files_summary.json",
     "backend/main.mo",
+    "backend/migration.mo",
     "frontend-file-summaries.txt",
-    "frontend/index.css",
-    "frontend/index.html",
     "frontend/src/App.tsx",
-    "frontend/src/components/EmptyState.tsx",
-    "frontend/src/components/Footer.tsx",
     "frontend/src/components/Header.tsx",
-    "frontend/src/components/PageHeader.tsx",
     "frontend/src/hooks/useActor.ts",
-    "frontend/src/hooks/useInternetIdentity.ts",
     "frontend/src/hooks/useQueries.ts",
-    "frontend/src/index.css",
-    "frontend/src/main.tsx",
-    "frontend/src/pages/ExamSchedule.tsx",
+    "frontend/src/pages/Advertisements.tsx",
     "frontend/src/pages/Home.tsx",
-    "frontend/src/pages/NoticesBoard.tsx",
-    "frontend/src/pages/Students.tsx",
-    "frontend/tailwind.config.js",
+    "frontend/src/utils/urlParams.ts",
     "project_state.json"
   ]
 }

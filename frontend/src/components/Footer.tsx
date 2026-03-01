@@ -2,14 +2,14 @@ import { Heart } from 'lucide-react';
 
 export default function Footer() {
     const year = new Date().getFullYear();
-    const appId = encodeURIComponent(typeof window !== 'undefined' ? window.location.hostname : 'navodaya-portal');
+    const appId = encodeURIComponent(typeof window !== 'undefined' ? window.location.hostname : 'suraj-navodaya-app');
 
     return (
         <footer className="bg-maroon-800 text-primary-foreground/70 mt-auto">
             <div className="border-t border-maroon-600">
                 <div className="container mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm font-sans">
                     <div className="flex items-center gap-2">
-                        <span className="font-serif font-semibold text-gold-400">Navodaya Portal</span>
+                        <span className="font-serif font-semibold text-gold-400">Suraj Navodaya App</span>
                         <span className="text-primary-foreground/40">·</span>
                         <span>© {year} All rights reserved</span>
                     </div>

@@ -1,10 +1,11 @@
-import { Bell, Users, Calendar, BookOpen, ArrowRight, TrendingUp } from 'lucide-react';
+import { Bell, Users, Calendar, BookOpen, ArrowRight, TrendingUp, Megaphone } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useGetAllNotices } from '@/hooks/useQueries';
 import { useGetAllStudents } from '@/hooks/useQueries';
 import { useGetAllExams } from '@/hooks/useQueries';
+import { useGetAllAds } from '@/hooks/useQueries';
 
 interface HomeProps {
     onNavigate: (page: string) => void;
@@ -50,6 +51,7 @@ export default function Home({ onNavigate }: HomeProps) {
     const { data: notices, isLoading: noticesLoading } = useGetAllNotices();
     const { data: students, isLoading: studentsLoading } = useGetAllStudents();
     const { data: exams, isLoading: examsLoading } = useGetAllExams();
+    const { data: ads, isLoading: adsLoading } = useGetAllAds();
 
     const recentNotices = notices
         ? [...notices].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3)
@@ -61,6 +63,8 @@ export default function Home({ onNavigate }: HomeProps) {
               .sort((a, b) => a.date.localeCompare(b.date))
               .slice(0, 3)
         : [];
+
+    const activeAds = ads ? ads.filter((a) => a.isActive).slice(0, 3) : [];
 
     return (
         <div className="space-y-8">
@@ -214,16 +218,11 @@ export default function Home({ onNavigate }: HomeProps) {
                                 >
                                     <div className="w-2 h-2 rounded-full bg-maroon-500 mt-1.5 flex-shrink-0" />
                                     <div className="min-w-0 flex-1">
-                                        <div className="flex items-center justify-between gap-2">
-                                            <p className="text-sm font-medium text-foreground font-sans">
-                                                {exam.subject}
-                                            </p>
-                                            <Badge variant="outline" className="text-xs border-maroon-200 text-maroon-600 dark:border-maroon-700 dark:text-gold-400 flex-shrink-0">
-                                                Class {exam.classLevel.toString()}
-                                            </Badge>
-                                        </div>
+                                        <p className="text-sm font-medium text-foreground truncate font-sans">
+                                            {exam.subject}
+                                        </p>
                                         <p className="text-xs text-muted-foreground mt-0.5 font-sans">
-                                            {exam.date} · {exam.time}
+                                            {exam.date} · {exam.time} · Class {exam.classLevel.toString()}
                                         </p>
                                     </div>
                                 </div>
@@ -232,6 +231,72 @@ export default function Home({ onNavigate }: HomeProps) {
                     </CardContent>
                 </Card>
             </div>
+
+            {/* Active Advertisements Preview */}
+            {(adsLoading || activeAds.length > 0) && (
+                <section>
+                    <Card className="shadow-card border-border">
+                        <CardHeader className="pb-3 border-b border-border">
+                            <CardTitle className="font-serif text-base flex items-center justify-between">
+                                <span className="flex items-center gap-2 text-maroon-700 dark:text-gold-400">
+                                    <Megaphone className="w-4 h-4" />
+                                    Advertisements
+                                </span>
+                                <button
+                                    onClick={() => onNavigate('advertisements')}
+                                    className="text-xs font-sans text-maroon-500 hover:text-maroon-700 dark:text-gold-500 dark:hover:text-gold-300 flex items-center gap-1 transition-colors"
+                                >
+                                    View all <ArrowRight className="w-3 h-3" />
+                                </button>
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="pt-4">
+                            {adsLoading ? (
+                                <div className="space-y-3">
+                                    {Array.from({ length: 2 }).map((_, i) => (
+                                        <div key={i} className="space-y-1.5">
+                                            <Skeleton className="h-4 w-3/4" />
+                                            <Skeleton className="h-3 w-full" />
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="grid sm:grid-cols-3 gap-3">
+                                    {activeAds.map((ad) => (
+                                        <div
+                                            key={ad.id.toString()}
+                                            className="flex flex-col gap-2 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors border border-border"
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                <div className="w-6 h-6 rounded bg-gold-400/20 flex items-center justify-center flex-shrink-0">
+                                                    <Megaphone className="w-3 h-3 text-gold-600 dark:text-gold-400" />
+                                                </div>
+                                                <p className="text-sm font-semibold text-foreground truncate font-sans">
+                                                    {ad.title}
+                                                </p>
+                                            </div>
+                                            <p className="text-xs text-muted-foreground font-sans line-clamp-2 leading-relaxed">
+                                                {ad.description}
+                                            </p>
+                                            {ad.linkUrl && (
+                                                <a
+                                                    href={ad.linkUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-xs text-maroon-600 dark:text-gold-400 hover:underline flex items-center gap-1 mt-auto"
+                                                >
+                                                    <ArrowRight className="w-3 h-3" />
+                                                    Learn more
+                                                </a>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </CardContent>
+                    </Card>
+                </section>
+            )}
         </div>
     );
 }

@@ -10,6 +10,15 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
+export interface Ad {
+  'id' : bigint,
+  'title' : string,
+  'linkUrl' : string,
+  'createdAt' : bigint,
+  'description' : string,
+  'isActive' : boolean,
+  'imageUrl' : string,
+}
 export interface Exam {
   'subject' : string,
   'date' : string,
@@ -27,13 +36,27 @@ export interface Student {
   'rollNumber' : bigint,
   'classLevel' : bigint,
 }
+export interface UserProfile { 'name' : string }
+export type UserRole = { 'admin' : null } |
+  { 'user' : null } |
+  { 'guest' : null };
 export interface _SERVICE {
+  '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
+  'addAd' : ActorMethod<[string, string, string, string], bigint>,
   'addExam' : ActorMethod<[string, string, string, bigint], undefined>,
   'addNotice' : ActorMethod<[string, string, string], undefined>,
   'addStudent' : ActorMethod<[string, bigint, string, bigint], undefined>,
+  'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'getAllAds' : ActorMethod<[], Array<Ad>>,
   'getAllExams' : ActorMethod<[], Array<Exam>>,
   'getAllNotices' : ActorMethod<[], Array<Notice>>,
   'getAllStudents' : ActorMethod<[], Array<Student>>,
+  'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
+  'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
+  'isCallerAdmin' : ActorMethod<[], boolean>,
+  'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
+  'toggleAdActive' : ActorMethod<[bigint], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

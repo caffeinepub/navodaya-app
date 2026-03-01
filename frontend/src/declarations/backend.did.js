@@ -8,6 +8,20 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
+export const UserRole = IDL.Variant({
+  'admin' : IDL.Null,
+  'user' : IDL.Null,
+  'guest' : IDL.Null,
+});
+export const Ad = IDL.Record({
+  'id' : IDL.Nat,
+  'title' : IDL.Text,
+  'linkUrl' : IDL.Text,
+  'createdAt' : IDL.Int,
+  'description' : IDL.Text,
+  'isActive' : IDL.Bool,
+  'imageUrl' : IDL.Text,
+});
 export const Exam = IDL.Record({
   'subject' : IDL.Text,
   'date' : IDL.Text,
@@ -25,19 +39,48 @@ export const Student = IDL.Record({
   'rollNumber' : IDL.Nat,
   'classLevel' : IDL.Nat,
 });
+export const UserProfile = IDL.Record({ 'name' : IDL.Text });
 
 export const idlService = IDL.Service({
+  '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+  'addAd' : IDL.Func([IDL.Text, IDL.Text, IDL.Text, IDL.Text], [IDL.Nat], []),
   'addExam' : IDL.Func([IDL.Text, IDL.Text, IDL.Text, IDL.Nat], [], []),
   'addNotice' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
   'addStudent' : IDL.Func([IDL.Text, IDL.Nat, IDL.Text, IDL.Nat], [], []),
+  'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'getAllAds' : IDL.Func([], [IDL.Vec(Ad)], ['query']),
   'getAllExams' : IDL.Func([], [IDL.Vec(Exam)], ['query']),
   'getAllNotices' : IDL.Func([], [IDL.Vec(Notice)], ['query']),
   'getAllStudents' : IDL.Func([], [IDL.Vec(Student)], ['query']),
+  'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+  'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getUserProfile' : IDL.Func(
+      [IDL.Principal],
+      [IDL.Opt(UserProfile)],
+      ['query'],
+    ),
+  'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+  'toggleAdActive' : IDL.Func([IDL.Nat], [], []),
 });
 
 export const idlInitArgs = [];
 
 export const idlFactory = ({ IDL }) => {
+  const UserRole = IDL.Variant({
+    'admin' : IDL.Null,
+    'user' : IDL.Null,
+    'guest' : IDL.Null,
+  });
+  const Ad = IDL.Record({
+    'id' : IDL.Nat,
+    'title' : IDL.Text,
+    'linkUrl' : IDL.Text,
+    'createdAt' : IDL.Int,
+    'description' : IDL.Text,
+    'isActive' : IDL.Bool,
+    'imageUrl' : IDL.Text,
+  });
   const Exam = IDL.Record({
     'subject' : IDL.Text,
     'date' : IDL.Text,
@@ -55,14 +98,29 @@ export const idlFactory = ({ IDL }) => {
     'rollNumber' : IDL.Nat,
     'classLevel' : IDL.Nat,
   });
+  const UserProfile = IDL.Record({ 'name' : IDL.Text });
   
   return IDL.Service({
+    '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+    'addAd' : IDL.Func([IDL.Text, IDL.Text, IDL.Text, IDL.Text], [IDL.Nat], []),
     'addExam' : IDL.Func([IDL.Text, IDL.Text, IDL.Text, IDL.Nat], [], []),
     'addNotice' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
     'addStudent' : IDL.Func([IDL.Text, IDL.Nat, IDL.Text, IDL.Nat], [], []),
+    'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'getAllAds' : IDL.Func([], [IDL.Vec(Ad)], ['query']),
     'getAllExams' : IDL.Func([], [IDL.Vec(Exam)], ['query']),
     'getAllNotices' : IDL.Func([], [IDL.Vec(Notice)], ['query']),
     'getAllStudents' : IDL.Func([], [IDL.Vec(Student)], ['query']),
+    'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+    'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getUserProfile' : IDL.Func(
+        [IDL.Principal],
+        [IDL.Opt(UserProfile)],
+        ['query'],
+      ),
+    'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+    'toggleAdActive' : IDL.Func([IDL.Nat], [], []),
   });
 };
 
