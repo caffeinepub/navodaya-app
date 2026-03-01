@@ -10,7 +10,8 @@
   "frontend/src/pages/Students.tsx": "Students page with searchable card grid of student profiles, and a dialog form to add new students with validation.",
   "frontend/src/pages/NoticesBoard.tsx": "Notice Board page with chronologically sorted notice cards (expandable content), and a dialog form to post new notices.",
   "frontend/src/pages/ExamSchedule.tsx": "Exam Schedule page with a responsive table (desktop) and card list (mobile) showing all exams with upcoming/completed status badges, plus an add exam dialog.",
-  "frontend/src/App.tsx": "Root app component managing page state (home, students, notices, exams, advertisements) and rendering Header, Footer, and the active page in a flex layout.",
+  "frontend/src/App.tsx": "Root app component that now checks authentication state — shows a loading spinner while initializing, renders LoginScreen when unauthenticated, and renders the full app (Header, pages, Footer) when authenticated.",
   "frontend/index.html": "HTML entry point with browser tab title updated to \"Suraj Navodaya App\".",
-  "frontend/src/pages/Advertisements.tsx": "New Advertisements page displaying all ad cards with title, description, image, active/inactive badge, external link, and toggle button; includes an \"Add Advertisement\" dialog form with title, description, imageUrl, and linkUrl fields."
+  "frontend/src/pages/Advertisements.tsx": "New Advertisements page displaying all ad cards with title, description, image, active/inactive badge, external link, and toggle button; includes an \"Add Advertisement\" dialog form with title, description, imageUrl, and linkUrl fields.",
+  "frontend/src/components/LoginScreen.tsx": "New full-screen login component with maroon/gold gradient background, school emblem, Hindi tagline, feature icons (students/notices/exams), and a prominent gold-styled Internet Identity login button with loading state."
 }

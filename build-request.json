@@ -1,112 +1,39 @@
 {
   "kind": "build_request",
-  "title": "Add Advertisements Section to Suraj Navodaya App",
+  "title": "Update Login Section UI",
   "projectName": "Suraj Navodaya App",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Add an Ads/Advertisements data model to the backend with fields: id (Nat), title (Text), description (Text), imageUrl (Text), linkUrl (Text), isActive (Bool), and createdAt (Int). Implement addAd, getAllAds, and toggleAdActive CRUD functions in the main actor.",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-5"
-        ],
-        "quotes": [
-          "Is app mein ads bhi Jod dena"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend actor exposes addAd, getAllAds, and toggleAdActive functions",
-        "Ad records include id, title, description, imageUrl, linkUrl, isActive, and createdAt fields",
-        "getAllAds returns all stored ads sorted by creation date"
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Add React Query hooks for advertisements: useGetAds (fetch all ads), useAddAd (add a new ad mutation with cache invalidation), and useToggleAd (toggle active status mutation) in frontend/src/hooks/useQueries.ts.",
+      "text": "Redesign the login/authentication section of the app with an improved visual layout. Update the Internet Identity login UI to feature a more prominent, visually appealing login button with clear school branding (maroon and gold theme). Add a welcoming title, a brief description of the app, and the school logo/name above the login button. Ensure the login area is centered and styled consistently with the overall Suraj Navodaya App theme.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-recent"
         ],
         "quotes": [
-          "Is app mein ads bhi Jod dena"
+          "Logon mein change"
         ]
       },
       "acceptanceCriteria": [
-        "useGetAds hook fetches all ads from the backend actor",
-        "useAddAd mutation invalidates the ads query cache on success",
-        "useToggleAd mutation toggles the isActive field and invalidates the ads cache"
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Create a new Advertisements page (frontend/src/pages/Advertisements.tsx) that displays active ads as visually styled banner cards with title, description, and an optional external link. Include an admin dialog form to add new ads with fields: title, description, image URL, and link URL. Use the existing maroon-and-gold theme consistent with the rest of the app.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-5"
-        ],
-        "quotes": [
-          "Is app mein ads bhi Jod dena"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Advertisements page renders a list of active ad banner cards",
-        "Each card shows title, description, and a clickable external link if linkUrl is provided",
-        "An 'Add Advertisement' dialog form allows entering title, description, imageUrl, and linkUrl",
-        "Empty state is shown using the EmptyState component when no ads exist",
-        "Page uses maroon-and-gold color tokens consistent with the rest of the app"
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Add an 'Advertisements' navigation entry to the Header component (desktop nav buttons and mobile hamburger menu) and wire up the active page state in App.tsx to render the Advertisements page when selected.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-5"
-        ],
-        "quotes": [
-          "Is app mein ads bhi Jod dena"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Header desktop nav includes an 'Advertisements' button",
-        "Header mobile hamburger menu includes an 'Advertisements' item",
-        "App.tsx renders the Advertisements page when the 'Advertisements' nav item is active"
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "Display a horizontal scrolling or grid preview of active ads on the Home dashboard page (frontend/src/pages/Home.tsx), similar to how recent notices and upcoming exams are previewed, with a 'View All' navigation callback to the Advertisements page.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-5"
-        ],
-        "quotes": [
-          "Is app mein ads bhi Jod dena"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Home page shows a preview section for active ads",
-        "A 'View All' button navigates to the Advertisements page",
-        "If no active ads exist, the preview section is hidden or shows a brief empty message"
+        "The login section displays the school name 'Suraj Navodaya' prominently above the login button",
+        "The Internet Identity login button is styled with the maroon and gold color theme",
+        "A welcoming description or tagline is visible near the login area",
+        "The login section is centered and visually consistent with the app's existing maroon/gold design system",
+        "Login functionality (Internet Identity) continues to work correctly after the UI changes"
       ]
     }
   ],
   "constraints": [
-    "Maintain the existing maroon-and-gold Navodaya visual theme throughout all new UI components",
-    "Do not modify any files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or frontend/src/components/ui",
-    "All Motoko logic must remain in the single backend/main.mo actor"
+    "Do not modify frontend/src/hooks/useInternetIdentity.ts or frontend/src/hooks/useActor.ts",
+    "Internet Identity authentication flow must remain fully functional",
+    "Maintain the existing maroon and gold color theme defined in tailwind.config.js and index.css"
   ],
   "nonGoals": [
-    "Third-party ad networks or programmatic advertising integrations (e.g., Google AdSense)",
-    "Ad analytics or impression tracking",
-    "Paid/monetization features",
-    "Image upload — image URLs are entered as text fields only"
+    "Adding new authentication providers (only Internet Identity is supported)",
+    "Changing backend authentication logic",
+    "Deploying to Google Play Store"
   ],
   "imageRequirements": {
     "required": [],

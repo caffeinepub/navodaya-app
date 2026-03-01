@@ -1,40 +1,16 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "A named project 'Suraj Navodaya App' with an ads feature being added.",
+  "summary": "Suraj Navodaya App - a web app deployed on Internet Computer with ads support. User wants changes to the login section.",
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-add-react-query-hooks-for-advertisements-usegetads-fetch-all-ads-useaddad-add-a-new-ad-mutation-with-cache-invalidation-and-usetogglead-toggle-active-status-mutation-in-frontend-src-hooks-usequeries-ts",
-      "title": "Add React Query hooks for advertisements: useGetAds (fetch all ads), useAddAd (add a new ad mutation with cache invalidation), and useToggleAd (toggle active status mutation) in frontend/src/hooks/useQueries.ts.",
+      "id": "feature-redesign-the-login-authentication-section-of-the-app-with-an-improved-visual-layout-update-the-internet-identity-login-ui-to-feature-a-more-prominent-visually-appealing-login-button-with-clear-school-branding-maroon-and-gold-theme-add-a-welcoming-title-a-brief-description-of-the-app-and-the-school-logo-name-above-the-login-button-ensure-the-login-area-is-centered-and-styled-consistently-with-the-overall-suraj-navodaya-app-theme",
+      "title": "Redesign the login/authentication section of the app with an improved visual layout. Update the Internet Identity login UI to feature a more prominent, visually appealing login button with clear school branding (maroon and gold theme). Add a welcoming title, a brief description of the app, and the school logo/name above the login button. Ensure the login area is centered and styled consistently with the overall Suraj Navodaya App theme.",
       "reqIds": [
-        "REQ-2"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-a-new-advertisements-page-frontend-src-pages-advertisements-tsx-that-displays-active-ads-as-visually-styled-banner-cards-with-title-description-and-an-optional-external-link-include-an-admin-dialog-form-to-add-new-ads-with-fields-title-description-image-url-and-link-url-use-the-existing-maroon-and-gold-theme-consistent-with-the-rest-of-the-app",
-      "title": "Create a new Advertisements page (frontend/src/pages/Advertisements.tsx) that displays active ads as visually styled banner cards with title, description, and an optional external link. Include an admin dialog form to add new ads with fields: title, description, image URL, and link URL. Use the existing maroon-and-gold theme consistent with the rest of the app.",
-      "reqIds": [
-        "REQ-3"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-an-advertisements-navigation-entry-to-the-header-component-desktop-nav-buttons-and-mobile-hamburger-menu-and-wire-up-the-active-page-state-in-app-tsx-to-render-the-advertisements-page-when-selected",
-      "title": "Add an 'Advertisements' navigation entry to the Header component (desktop nav buttons and mobile hamburger menu) and wire up the active page state in App.tsx to render the Advertisements page when selected.",
-      "reqIds": [
-        "REQ-4"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-display-a-horizontal-scrolling-or-grid-preview-of-active-ads-on-the-home-dashboard-page-frontend-src-pages-home-tsx-similar-to-how-recent-notices-and-upcoming-exams-are-previewed-with-a-view-all-navigation-callback-to-the-advertisements-page",
-      "title": "Display a horizontal scrolling or grid preview of active ads on the Home dashboard page (frontend/src/pages/Home.tsx), similar to how recent notices and upcoming exams are previewed, with a 'View All' navigation callback to the Advertisements page.",
-      "reqIds": [
-        "REQ-5"
+        "REQ-1"
       ],
       "version": 1
     }
@@ -42,16 +18,8 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Add advertisements/ads to the app",
+      "summary": "Change/update the login section of the app",
       "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-2",
-      "summary": "Add an Ads/Advertisements data model to the backend with fields: id (Nat), title (Text), description (Text), imageUrl (Text), linkUrl (Text), isActive (Bool), and createdAt (Int). Implement addAd, getAllAds, and toggleAdActive CRUD functions in the main actor.",
-      "reqIds": [
-        "REQ-1"
-      ],
       "status": "pending"
     }
   ],

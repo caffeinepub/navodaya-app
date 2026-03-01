@@ -1,76 +1,33 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add Advertisements Section to Suraj Navodaya App",
+  "title": "Update Login Section UI",
   "requirements": [
     {
-      "id": "REQ-2",
-      "summary": "Add React Query hooks for advertisements management",
+      "id": "REQ-1",
+      "summary": "Redesign the login/authentication section with improved visual layout featuring school branding, welcoming content, and maroon/gold theme styling",
       "acceptanceCriteria": [
-        "useGetAds hook fetches all ads from the backend actor",
-        "useAddAd mutation invalidates the ads query cache on success",
-        "useToggleAd mutation toggles the isActive field and invalidates the ads cache"
+        "The login section displays the school name 'Suraj Navodaya' prominently above the login button",
+        "The Internet Identity login button is styled with the maroon and gold color theme",
+        "A welcoming description or tagline is visible near the login area",
+        "The login section is centered and visually consistent with the app's existing maroon/gold design system",
+        "Login functionality (Internet Identity) continues to work correctly after the UI changes"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Add three new React Query hooks: useGetAds (query to fetch all advertisements from backend.getAllAds), useAddAd (mutation calling backend.addAd with title, description, imageUrl, linkUrl and invalidating 'ads' query key on success), and useToggleAd (mutation calling backend.toggleAdActive with ad id and invalidating 'ads' query key on success). Follow the existing pattern used for students, notices, and exams hooks."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Create Advertisements page with active ads display and admin dialog form",
-      "acceptanceCriteria": [
-        "Advertisements page renders a list of active ad banner cards",
-        "Each card shows title, description, and a clickable external link if linkUrl is provided",
-        "An 'Add Advertisement' dialog form allows entering title, description, imageUrl, and linkUrl",
-        "Empty state is shown using the EmptyState component when no ads exist",
-        "Page uses maroon-and-gold color tokens consistent with the rest of the app"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/Advertisements.tsx",
+          "path": "frontend/src/components/LoginScreen.tsx",
           "operation": "create",
-          "description": "Create a new page component that uses useGetAds to fetch advertisements and displays active ads as visually styled banner cards with title, description, and optional external link button. Include an 'Add Advertisement' button in the PageHeader action slot that opens a Dialog form with Input fields for title, description, imageUrl (text URL input), and linkUrl. Use useAddAd mutation to submit new ads. Show EmptyState component with MegaphoneIcon when no active ads exist. Apply maroon-and-gold theme using CSS custom properties (--primary, --maroon, --gold) matching the existing app styling. Each ad card should conditionally render an external link button only if linkUrl is provided. Use admin-only guard similar to other pages if needed."
-        }
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "summary": "Wire Advertisements page into navigation and routing",
-      "acceptanceCriteria": [
-        "Header desktop nav includes an 'Advertisements' button",
-        "Header mobile hamburger menu includes an 'Advertisements' item",
-        "App.tsx renders the Advertisements page when the 'Advertisements' nav item is active"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/Header.tsx",
-          "operation": "modify",
-          "description": "Add an 'Advertisements' navigation button to the desktop nav buttons array (alongside Home, Students, Notices Board, Exam Schedule) and add a corresponding menu item to the mobile hamburger menu. Use MegaphoneIcon from lucide-react for the nav icon. Ensure the active state styling is applied when 'Advertisements' is the active page."
+          "description": "Create a new LoginScreen component that displays a centered authentication view with the school name 'Suraj Navodaya', school emblem from frontend/public/assets/generated/navodaya-emblem.dim_128x128.png, a welcoming tagline describing the app, and a prominent Internet Identity login button styled with the maroon and gold theme. Use the useInternetIdentity hook for authentication. Apply Tailwind classes using the maroon-600, maroon-700, gold-500, and gold-600 colors defined in tailwind.config.js to match the existing design system."
         },
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Import the new Advertisements page component and add 'Advertisements' as a fifth valid page option in the activePage state type. Add a case in the page rendering logic to display the Advertisements component when activePage === 'Advertisements'. Ensure the page state is correctly passed to Header for active nav highlighting."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Display active ads preview section on Home dashboard",
-      "acceptanceCriteria": [
-        "Home page shows a preview section for active ads",
-        "A 'View All' button navigates to the Advertisements page",
-        "If no active ads exist, the preview section is hidden or shows a brief empty message"
-      ],
-      "file_operations": [
+          "description": "Modify App.tsx to conditionally render the LoginScreen component when the user is not authenticated. Import useInternetIdentity hook to check authentication state. Show LoginScreen when identity is null, otherwise render the existing app content (Header, pages, Footer). Ensure the authentication check happens before rendering any application data."
+        },
         {
-          "path": "frontend/src/pages/Home.tsx",
+          "path": "frontend/src/main.tsx",
           "operation": "modify",
-          "description": "Add a new preview section for active advertisements below the existing Recent Notices and Upcoming Exams sections. Use useGetAds hook to fetch ads and filter for isActive === true. Display up to 3 active ads in a horizontal scrolling or grid layout with each ad showing title and a brief description excerpt. Include a 'View All' button that calls setActivePage('Advertisements'). If no active ads exist, conditionally hide the section or show a brief empty message. Match the existing card styling and layout patterns used for notices and exams previews. Use MegaphoneIcon for the section icon."
+          "description": "Verify that InternetIdentityProvider wraps the App component correctly to ensure authentication context is available throughout the component tree. No changes needed if already correctly wrapped, but review to confirm the provider hierarchy supports the new LoginScreen authentication flow."
         }
       ]
     }
