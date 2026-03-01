@@ -1,0 +1,14 @@
+{
+  "frontend/src/index.css": "Global styles with Navodaya-themed OKLCH color system (deep maroon primary, golden-yellow secondary/accent) and Google Fonts imports for Merriweather serif and Inter sans-serif.",
+  "frontend/tailwind.config.js": "Extended Tailwind config with custom maroon and gold color palettes, Merriweather/Inter font families, and card shadow utilities for the institutional theme.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations — getAllStudents, addStudent, getAllNotices, addNotice, getAllExams, addExam — with proper cache invalidation.",
+  "frontend/src/components/Header.tsx": "Sticky header with Navodaya emblem logo, school title, desktop nav links, and a responsive mobile hamburger menu using maroon/gold theme.",
+  "frontend/src/components/Footer.tsx": "Footer with school branding, dynamic copyright year, and caffeine.ai attribution link with UTM tracking.",
+  "frontend/src/components/PageHeader.tsx": "Reusable page header component with icon, title, subtitle, and optional action slot.",
+  "frontend/src/components/EmptyState.tsx": "Reusable empty state component with icon, title, and description for when lists have no data.",
+  "frontend/src/pages/Home.tsx": "Home page with hero banner image, stats overview cards linking to other sections, and panels for latest notices and upcoming exams.",
+  "frontend/src/pages/Students.tsx": "Students page with searchable card grid of student profiles, and a dialog form to add new students with validation.",
+  "frontend/src/pages/NoticesBoard.tsx": "Notice Board page with chronologically sorted notice cards (expandable content), and a dialog form to post new notices.",
+  "frontend/src/pages/ExamSchedule.tsx": "Exam Schedule page with a responsive table (desktop) and card list (mobile) showing all exams with upcoming/completed status badges, plus an add exam dialog.",
+  "frontend/src/App.tsx": "Root app component managing page state and rendering Header, Footer, and the active page (Home, Students, NoticesBoard, ExamSchedule) in a flex layout."
+}

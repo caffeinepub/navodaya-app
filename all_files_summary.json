@@ -1,0 +1,23 @@
+{
+  "backend/main.mo": "Motoko actor defining Student, Notice, and Exam types with in-memory storage and CRUD query/update methods for a school portal backend.",
+  "feature_evidence.json": "Feature evidence report mapping three product features (dashboard pages, visual theme, hero assets) to their implementing source files and test IDs.",
+  "frontend-file-summaries.txt": "JSON document containing one-line summaries of each frontend source file for build planning reference.",
+  "frontend/index.css": "Tailwind base stylesheet defining OKLCH CSS custom properties for light and dark color themes used across the app.",
+  "frontend/index.html": "Minimal HTML entry point that mounts the React app into a root div and loads the main TypeScript module.",
+  "frontend/src/App.tsx": "Root React component managing active page state and rendering Header, Footer, and the selected page (Home, Students, NoticesBoard, ExamSchedule).",
+  "frontend/src/components/EmptyState.tsx": "Reusable empty state UI component displaying an icon, title, and description when a list has no data.",
+  "frontend/src/components/Footer.tsx": "Footer component showing school branding, dynamic copyright year, and a caffeine.ai attribution link with UTM tracking.",
+  "frontend/src/components/Header.tsx": "Sticky header with Navodaya emblem logo, school title, desktop nav buttons, and a responsive mobile hamburger menu using the maroon/gold theme.",
+  "frontend/src/components/PageHeader.tsx": "Reusable page header component rendering an optional icon, title, subtitle, and an optional action slot in a responsive layout.",
+  "frontend/src/hooks/useActor.ts": "React Query hook that creates and caches an authenticated or anonymous ICP backend actor, invalidating dependent queries when the identity changes.",
+  "frontend/src/hooks/useInternetIdentity.ts": "Provides a React context and hook for Internet Identity authentication, wrapping DFINITY's AuthClient to handle login, logout, and persisted identity state with status tracking.",
+  "frontend/src/hooks/useQueries.ts": "Defines TanStack Query hooks for fetching and mutating students, notices, and exams via the backend actor, with cache invalidation on successful mutations.",
+  "frontend/src/index.css": "Global stylesheet that imports Google Fonts, sets up Tailwind CSS layers, and defines CSS custom properties for a Navodaya maroon-and-gold theme in both light and dark modes.",
+  "frontend/src/main.tsx": "Application entry point that mounts the React app wrapped with TanStack QueryClientProvider and InternetIdentityProvider.",
+  "frontend/src/pages/ExamSchedule.tsx": "Page component that displays a sortable exam schedule table with upcoming/past badges, and provides a dialog form to add new exams via the useAddExam mutation.",
+  "frontend/src/pages/Home.tsx": "Dashboard home page showing stat cards for total students, notices, and exams, plus sections for recent notices and upcoming exams with navigation callbacks.",
+  "frontend/src/pages/NoticesBoard.tsx": "Page component that lists school notices sorted by date with expandable content, and includes a dialog form to add new notices via the useAddNotice mutation.",
+  "frontend/src/pages/Students.tsx": "React page component that displays a searchable grid of student cards with name, class, house, and roll number, and includes a dialog form for adding new students via the useAddStudent hook.",
+  "frontend/tailwind.config.js": "Tailwind CSS configuration extending the default theme with custom maroon and gold color palettes, serif/sans font families, and plugins for typography, container queries, and animations.",
+  "project_state.json": "Project state metadata for the Navodaya App tracking existing features (frontend dashboard, visual theme, hero banner), pending backend feature requests, and required image assets."
+}

@@ -1,0 +1,66 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-build-a-frontend-dashboard-with-sections-for-home-school-overview-and-latest-announcements-students-profile-listing-and-details-notices-board-school-announcements-and-exam-schedule-timetable-view",
+      "featureTitle": "Build a frontend dashboard with sections for: Home (school overview and latest announcements), Students (profile listing and details), Notices Board (school announcements), and Exam Schedule (timetable view).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/Header.tsx",
+        "frontend/src/pages/ExamSchedule.tsx",
+        "frontend/src/pages/Home.tsx",
+        "frontend/src/pages/NoticesBoard.tsx",
+        "frontend/src/pages/Students.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-cohesive-visual-theme-inspired-by-navodaya-vidyalaya-s-identity-use-deep-maroon-and-golden-yellow-as-primary-colors-clean-academic-typography-structured-card-based-layouts-with-subtle-borders-and-a-professional-institutional-look-enforce-this-theme-consistently-across-all-pages-and-components",
+      "featureTitle": "Apply a cohesive visual theme inspired by Navodaya Vidyalaya's identity: use deep maroon and golden-yellow as primary colors, clean academic typography, structured card-based layouts with subtle borders, and a professional institutional look. Enforce this theme consistently across all pages and components.",
+      "files": [
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-generate-and-display-a-school-portal-hero-banner-image-and-a-navodaya-logo-emblem-illustration-as-static-assets-in-the-app-header-and-home-page",
+      "featureTitle": "Generate and display a school portal hero banner image and a Navodaya logo/emblem illustration as static assets in the app header and home page.",
+      "files": [
+        "frontend/src/components/Header.tsx",
+        "frontend/src/pages/Home.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

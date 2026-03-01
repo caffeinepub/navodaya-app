@@ -1,0 +1,118 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Navodaya Vidyalaya Student Portal App - Frontend Implementation",
+  "requirements": [
+    {
+      "id": "REQ-2",
+      "summary": "Build a frontend dashboard with sections for Home, Students, Notices Board, and Exam Schedule",
+      "acceptanceCriteria": [
+        "Navigation allows switching between Home, Students, Notices, and Exam Schedule sections",
+        "Home page shows a welcome banner and latest announcements",
+        "Students section lists student profiles with basic details",
+        "Notices board displays school announcements in chronological order",
+        "Exam schedule shows a timetable of upcoming exams"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Set up routing for Home, Students, Notices, and Exam Schedule pages using React Router. Add navigation structure to switch between sections."
+        },
+        {
+          "path": "frontend/src/pages/Home.tsx",
+          "operation": "create",
+          "description": "Create the Home page with a welcome banner section and a display area for latest announcements. Use React Query to fetch notices from backend using getAllNotices(). Display the hero banner image (frontend/public/assets/generated/navodaya-hero-banner.dim_1200x400.png) in the banner section."
+        },
+        {
+          "path": "frontend/src/pages/Students.tsx",
+          "operation": "create",
+          "description": "Create the Students page that lists student profiles. Use React Query to fetch students from backend using getAllStudents(). Display each student's name, class, house, and roll number in a card-based layout."
+        },
+        {
+          "path": "frontend/src/pages/NoticesBoard.tsx",
+          "operation": "create",
+          "description": "Create the Notices Board page that displays school announcements. Use React Query to fetch notices from backend using getAllNotices(). Sort notices in chronological order and display title, content, and date in structured cards."
+        },
+        {
+          "path": "frontend/src/pages/ExamSchedule.tsx",
+          "operation": "create",
+          "description": "Create the Exam Schedule page that shows a timetable view of upcoming exams. Use React Query to fetch exams from backend using getAllExams(). Display each exam's subject, date, time, and class level in a table or card format."
+        },
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "operation": "create",
+          "description": "Create a header component displaying the school emblem logo (frontend/public/assets/generated/navodaya-emblem.dim_128x128.png) and navigation links to all main sections. Wire this header into App.tsx so it appears on all pages."
+        },
+        {
+          "path": "frontend/src/hooks/useStudents.ts",
+          "operation": "create",
+          "description": "Create a React Query hook to fetch all students from the backend using getAllStudents(). Handle loading and error states."
+        },
+        {
+          "path": "frontend/src/hooks/useNotices.ts",
+          "operation": "create",
+          "description": "Create a React Query hook to fetch all notices from the backend using getAllNotices(). Handle loading and error states."
+        },
+        {
+          "path": "frontend/src/hooks/useExams.ts",
+          "operation": "create",
+          "description": "Create a React Query hook to fetch all exams from the backend using getAllExams(). Handle loading and error states."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Apply a cohesive visual theme inspired by Navodaya Vidyalaya's identity with deep maroon and golden-yellow colors, academic typography, and card-based layouts",
+      "acceptanceCriteria": [
+        "Primary color palette uses deep maroon and golden-yellow tones",
+        "Typography is clean and readable, suitable for an academic institution",
+        "All pages use a consistent layout structure with card-based content areas",
+        "The visual style feels professional and institutional throughout the app"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind theme with deep maroon and golden-yellow as primary brand colors. Add custom color variables for primary (maroon), secondary (golden-yellow), and accent shades suitable for an academic institution."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Define global styles enforcing academic typography (clean serif or sans-serif fonts), base text sizes, and consistent spacing. Apply the maroon and golden-yellow theme to root CSS variables and default text/background colors."
+        },
+        {
+          "path": "frontend/src/components/Card.tsx",
+          "operation": "create",
+          "description": "Create a reusable Card component with subtle borders, padding, and shadow that reflects the institutional look. Use the theme colors from Tailwind config for borders and accents."
+        },
+        {
+          "path": "frontend/src/components/Layout.tsx",
+          "operation": "create",
+          "description": "Create a Layout component that wraps all pages with consistent structure, including the Header component and a main content area. Apply the institutional styling and card-based structure here. Wire this Layout into App.tsx to wrap all routes."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Display a school portal hero banner image and a Navodaya logo/emblem as static assets in the app header and home page",
+      "acceptanceCriteria": [
+        "Hero banner image is displayed on the home page",
+        "Logo/emblem is displayed in the app header",
+        "Images are loaded from frontend/public/assets/generated"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Home.tsx",
+          "operation": "modify",
+          "description": "Wire in the generated hero banner image (frontend/public/assets/generated/navodaya-hero-banner.dim_1200x400.png) into the Home page banner section. Use an <img> tag with proper alt text and styling to display it prominently at the top."
+        },
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "operation": "modify",
+          "description": "Wire in the generated emblem logo (frontend/public/assets/generated/navodaya-emblem.dim_128x128.png) into the header. Display it alongside the app title and navigation links, ensuring it is visible on all pages."
+        }
+      ]
+    }
+  ]
+}

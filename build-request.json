@@ -1,0 +1,97 @@
+{
+  "kind": "build_request",
+  "title": "Navodaya Vidyalaya Student Portal App",
+  "projectName": "Navodaya Portal",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a backend actor with data models and storage for Navodaya Vidyalaya school information, including: student profiles (name, class, house, roll number), announcements/notices, and exam schedules.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Navodaya pe app banana hai"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend stores and retrieves student profile records",
+        "Backend stores and retrieves school announcements/notices",
+        "Backend stores and retrieves exam schedule entries",
+        "CRUD operations are available for each data type"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Build a frontend dashboard with sections for: Home (school overview and latest announcements), Students (profile listing and details), Notices Board (school announcements), and Exam Schedule (timetable view).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Navodaya pe app banana hai"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Navigation allows switching between Home, Students, Notices, and Exam Schedule sections",
+        "Home page shows a welcome banner and latest announcements",
+        "Students section lists student profiles with basic details",
+        "Notices board displays school announcements in chronological order",
+        "Exam schedule shows a timetable of upcoming exams"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Apply a cohesive visual theme inspired by Navodaya Vidyalaya's identity: use deep maroon and golden-yellow as primary colors, clean academic typography, structured card-based layouts with subtle borders, and a professional institutional look. Enforce this theme consistently across all pages and components.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Primary color palette uses deep maroon and golden-yellow tones",
+        "Typography is clean and readable, suitable for an academic institution",
+        "All pages use a consistent layout structure with card-based content areas",
+        "The visual style feels professional and institutional throughout the app"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Generate and display a school portal hero banner image and a Navodaya logo/emblem illustration as static assets in the app header and home page.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Hero banner image is displayed on the home page",
+        "Logo/emblem is displayed in the app header",
+        "Images are loaded from frontend/public/assets/generated"
+      ]
+    }
+  ],
+  "constraints": [
+    "All backend logic must remain in a single Motoko actor file (backend/main.mo)",
+    "Do not edit any files listed under frontend.immutablePaths",
+    "Use only React, TypeScript, Tailwind CSS, and React Query on the frontend"
+  ],
+  "nonGoals": [
+    "Real-time notifications or chat features",
+    "External authentication (only Internet Identity if auth is needed)",
+    "Integration with any external school management APIs",
+    "Mobile app (React Native or Flutter)",
+    "Email or SMS notifications"
+  ],
+  "imageRequirements": {
+    "required": [
+      "Wide landscape banner illustration of a school campus with lush greenery, a flagpole, and a grand academic building in warm maroon and golden tones (navodaya-hero-banner.dim_1200x400.png)",
+      "Circular emblem/badge illustration featuring a book, a torch of knowledge, and decorative border in deep maroon and golden-yellow colors (navodaya-emblem.dim_128x128.png)"
+    ],
+    "edits": []
+  }
+}
